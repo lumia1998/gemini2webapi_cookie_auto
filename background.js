@@ -81,7 +81,15 @@ async function performScheduledSync() {
             tabId = tabs[0].id;
             await Logger.info('发现现有 Gemini 标签页', { tabId });
             // 刷新页面以触发 Cookie 更新
-            await chrome.tabs.reload(tabId);
+            try {
+                await chrome.tabs.reload(tabId);
+            } catch (e) {
+                // 标签页可能已被关闭，创建新标签页
+                await Logger.info('现有标签页已关闭，创建新标签页');
+                const tab = await chrome.tabs.create({ url: 'https://gemini.google.com', active: false });
+                tabId = tab.id;
+                isNewTab = true;
+            }
         } else {
             // 没有标签页，创建一个后台标签页
             await Logger.info('未找到 Gemini 标签页，正在创建...');

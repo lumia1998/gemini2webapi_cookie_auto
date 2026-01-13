@@ -20,6 +20,12 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
         return;
     }
 
+    // URL 格式校验
+    if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
+        showStatus('请输入有效的URL (http:// 或 https://)', 'error');
+        return;
+    }
+
     await chrome.storage.sync.set({ apiUrl, connectionToken, refreshInterval });
     chrome.runtime.sendMessage({ action: 'updateConfig' });
 
