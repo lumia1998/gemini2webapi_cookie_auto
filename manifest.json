@@ -1,0 +1,35 @@
+{
+    "manifest_version": 3,
+    "name": "WebAPI Cookie Updater",
+    "version": "1.0.0",
+    "description": "自动同步 Gemini Cookie 到 WebAPI 服务",
+    "permissions": [
+        "cookies",
+        "storage",
+        "alarms",
+        "notifications",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://gemini.google.com/*",
+        "https://*.google.com/*",
+        "http://localhost:*/*",
+        "http://127.0.0.1:*/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    }
+}
